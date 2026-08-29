@@ -1,0 +1,43 @@
+@using MyAppMVC.Models
+@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+    var products = ViewBag.Products as List<Product> ?? new List<Product>();
+    var categories = ViewBag.Categories as List<Category> ?? new List<Category>();
+}
+<div class="heading">
+    <h1>Danh sách sản phẩm</h1>
+    <p>Demo truyền <b>List&lt;Product&gt;</b> và <b>List&lt;Category&gt;</b> qua ViewBag.</p>
+</div>
+<div class="layout">
+    <aside class="sidebar">
+        <h3>DANH MỤC</h3>
+        <a class="category" asp-action="Index">Tất cả sản phẩm</a>
+        @foreach (var category in categories)
+        {
+            <a class="category" asp-action="Category" asp-route-id="@category.Id">@category.Name</a>
+        }
+    </aside>
+    <section class="products">
+        @if (products.Count == 0)
+        {
+            <div class="empty">Không có sản phẩm trong danh mục này.</div>
+        }
+        else
+        {
+            <div class="grid">
+            @foreach (var product in products)
+            {
+                <article class="card">
+                    <img src="@product.Image" alt="@product.Name" />
+                    <div class="card-body">
+                        <h3>@product.Name</h3>
+                        <p>@product.Description</p>
+                        <div class="price"><del>@product.Price.ToString("N0") đ</del> <strong>@product.SalePrice.ToString("N0") đ</strong></div>
+                        <a class="btn" asp-action="Detail" asp-route-id="@product.Id">Chi tiết</a>
+                    </div>
+                </article>
+            }
+            </div>
+        }
+    </section>
+</div>

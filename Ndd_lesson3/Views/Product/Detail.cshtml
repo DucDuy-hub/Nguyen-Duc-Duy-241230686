@@ -1,0 +1,16 @@
+@model MyAppMVC.Models.Product
+@{
+    ViewData["Title"] = "Chi tiết sản phẩm";
+}
+<div class="detail">
+    <div><img src="@Model.Image" alt="@Model.Name" /></div>
+    <div class="detail-info">
+        <h1>@Model.Name</h1>
+        <p><b>Giá:</b> <del>@Model.Price.ToString("N0") đ</del></p>
+        <p><b>Giá khuyến mãi:</b> <span class="sale">@Model.SalePrice.ToString("N0") đ</span></p>
+        <p><b>Mô tả:</b> @Model.Description</p>
+        <p><b>Trạng thái:</b> @(Model.Status ? "Còn hàng" : "Hết hàng")</p>
+        <p><b>Ngày tạo:</b> @Model.CreatedAt.ToString("dd/MM/yyyy")</p>
+        <a class="btn secondary" asp-action="Index">Quay lại</a>
+    </div>
+</div>

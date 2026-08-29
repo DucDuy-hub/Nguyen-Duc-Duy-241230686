@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MyAppMVC</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <div class="container nav-inner">
+            <a class="brand" asp-controller="Product" asp-action="Index">MyAppMVC</a>
+            <div class="nav-links">
+                <a asp-controller="Product" asp-action="Index">Danh sách sản phẩm</a>
+            </div>
+        </div>
+    </nav>
+</header>
+<main class="container page">
+    @RenderBody()
+</main>
+<footer class="footer">Bài thực hành ASP.NET Core MVC - Truyền dữ liệu Controller → View</footer>
+</body>
+</html>
