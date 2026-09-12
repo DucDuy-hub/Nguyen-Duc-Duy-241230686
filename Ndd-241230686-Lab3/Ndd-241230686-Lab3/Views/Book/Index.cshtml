@@ -1,0 +1,71 @@
+@model IEnumerable<Ndd_241230686_Lab3.Models.Book>
+
+@{
+    ViewData["Title"] = "Danh sách các cuốn sách";
+}
+
+<h2>Danh sách các cuốn sách</h2>
+
+<form asp-action="Index" method="get" class="form-inline" style="margin-bottom:15px;">
+    <select name="authorId" class="form-control">
+        <option value="">Chọn tác giả</option>
+        @foreach (var item in ViewBag.authors)
+        {
+            <option value="@item.Value">@item.Text</option>
+        }
+    </select>
+
+    <select name="genreId" class="form-control">
+        <option value="">Chọn thể loại</option>
+        @foreach (var item in ViewBag.genres)
+        {
+            <option value="@item.Value">@item.Text</option>
+        }
+    </select>
+
+    <button type="submit" class="btn btn-info">Tìm kiếm</button>
+    <a asp-action="Create" class="btn btn-danger">Thêm mới</a>
+</form>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Tiêu đề</th>
+            <th>Tác giả</th>
+            <th>Thể loại</th>
+            <th>Giá</th>
+            <th>Hình ảnh</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Title</td>
+                <td>@item.AuthorId</td>
+                <td>@item.GenreId</td>
+                <td>@item.Price.ToString("N0")</td>
+                <td><img class="book-img" src="@item.Image" alt="@item.Title"></td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Sửa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Popular Book - jQuery AJAX</h3>
+<button id="loadAjax" type="button" class="btn btn-primary">Load sách</button>
+
+<div id="load-data-ajax" class="row" style="margin-top:20px;"></div>
+
+@section Scripts {
+    <script>
+        $("#loadAjax").click(function () {
+            $("#load-data-ajax").load("/Book/PopularBook");
+        });
+    </script>
+}

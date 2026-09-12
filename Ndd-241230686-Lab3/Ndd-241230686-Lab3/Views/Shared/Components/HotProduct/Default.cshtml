@@ -1,0 +1,17 @@
+@model IEnumerable<Ndd_241230686_Lab3.Models.Product>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-xs-6 col-sm-4 col-md-3">
+            <div class="thumbnail">
+                <img class="product-img" src="@item.Image" alt="@item.Name">
+                <div class="caption">
+                    <h4>@item.Name</h4>
+                    <p>Price: <strong>@item.Price.ToString("N0") VNĐ</strong></p>
+                    <a href="#" class="btn btn-primary">Xem</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

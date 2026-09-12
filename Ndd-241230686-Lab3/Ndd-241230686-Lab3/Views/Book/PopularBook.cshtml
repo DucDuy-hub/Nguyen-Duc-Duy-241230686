@@ -1,0 +1,14 @@
+@model IEnumerable<Ndd_241230686_Lab3.Models.Book>
+
+@foreach (var item in Model)
+{
+    <div class="col-xs-6 col-sm-4 col-md-3">
+        <div class="thumbnail">
+            <img src="@item.Image" alt="@item.Title" style="width:100%;height:150px;object-fit:cover;">
+            <div class="caption">
+                <h4>@item.Title</h4>
+                <p>@item.Price.ToString("N0") VNĐ</p>
+            </div>
+        </div>
+    </div>
+}
