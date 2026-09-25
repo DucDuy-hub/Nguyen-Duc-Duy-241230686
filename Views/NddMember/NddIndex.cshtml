@@ -1,0 +1,53 @@
+@model IEnumerable<Ndd_lesson6.Models.NddMember>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="NddCreate">Create New</a>
+</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NddMemberUserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NddMemberPassword)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NddMemberEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NddMemberFullName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.NddMemberUserName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.NddMemberPassword)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.NddMemberEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.NddMemberFullName)
+            </td>
+            <td>
+                <a asp-action="NddEdit" asp-route-id="@item.NddMemberId">Sửa</a> |
+                <a asp-action="Details" asp-route-id="@item.NddMemberId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.NddMemberId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

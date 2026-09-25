@@ -1,0 +1,49 @@
+@model Ndd_lesson6.Models.NddMember
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>NddMember</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="NddMemberId" />
+            <div class="form-group">
+                <label asp-for="NddMemberUserName" class="control-label"></label>
+                <input asp-for="NddMemberUserName" class="form-control" />
+                <span asp-validation-for="NddMemberUserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NddMemberPassword" class="control-label"></label>
+                <input asp-for="NddMemberPassword" class="form-control" />
+                <span asp-validation-for="NddMemberPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NddMemberEmail" class="control-label"></label>
+                <input asp-for="NddMemberEmail" class="form-control" />
+                <span asp-validation-for="NddMemberEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NddMemberFullName" class="control-label"></label>
+                <input asp-for="NddMemberFullName" class="form-control" />
+                <span asp-validation-for="NddMemberFullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
