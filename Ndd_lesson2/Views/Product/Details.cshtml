@@ -1,0 +1,16 @@
+@model MyAppMVC.Models.Product
+@{
+    ViewData["Title"] = "Chi tiết sản phẩm";
+}
+
+<h4>Chi tiết sản phẩm</h4>
+
+<div class="card" style="max-width: 350px;">
+    <img src="@Model.Image" class="card-img-top" alt="@Model.Name" />
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <p class="card-text">Giá: @Model.Price.ToString("N0") đ</p>
+        <p class="card-text">Ngày tạo: @Model.CreatedAt.ToString("dd-MM-yyyy")</p>
+        <a asp-controller="Product" asp-action="Index" class="btn btn-primary">Quay lại</a>
+    </div>
+</div>

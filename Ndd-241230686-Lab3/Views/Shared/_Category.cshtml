@@ -1,0 +1,13 @@
+@model IEnumerable<Ndd_241230686_Lab3.Models.Category>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Danh mục sản phẩm
+    </div>
+    <div class="list-group">
+        @foreach (var item in Model)
+        {
+            <a href="#" class="list-group-item">@item.Name</a>
+        }
+    </div>
+</div>

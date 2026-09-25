@@ -1,0 +1,44 @@
+@model IEnumerable<Ndd_241230686_Lab3.Models.Product>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@await Html.PartialAsync("_Banner")
+
+<div class="row">
+    <div class="col-md-3">
+        <h3>Danh mục</h3>
+        @await Html.PartialAsync("_Category", (IEnumerable<Ndd_241230686_Lab3.Models.Category>)ViewBag.Categories)
+    </div>
+
+    <div class="col-md-9">
+        <h2>Sản phẩm mới nhất</h2>
+
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img class="product-img" src="@item.Image" alt="@item.Name">
+                        <div class="caption">
+                            <h4>@item.Name</h4>
+                            <p>Giá: <strong>@item.Price.ToString("N0") VNĐ</strong></p>
+                            <a href="#" class="btn btn-primary">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<h2 class="text-center">Khung sản phẩm phía dưới - HotProduct</h2>
+@await Component.InvokeAsync("HotProduct")
+
+<hr>
+
+<h2 class="text-center">Popular Book Load từ BookComponent</h2>
+@await Component.InvokeAsync("Book")
