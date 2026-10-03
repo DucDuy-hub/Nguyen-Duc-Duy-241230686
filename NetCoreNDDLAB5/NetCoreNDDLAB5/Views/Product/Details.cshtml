@@ -1,0 +1,68 @@
+﻿@model NetCoreNDDLAB5.Models.Product
+
+@{
+    ViewData["Title"] = "Chi tiết sản phẩm";
+}
+
+<h1>Chi tiết sản phẩm</h1>
+
+<div class="card" style="width: 500px;">
+    <div class="card-body">
+
+        <h4 class="card-title">
+            @Model.Name
+        </h4>
+
+        @if (!string.IsNullOrEmpty(Model.Image))
+        {
+            <div class="mb-3">
+                <img src="@Model.Image"
+                     style="width: 300px; height: auto;" />
+            </div>
+        }
+
+        <p>
+            <strong>Id:</strong>
+            @Model.Id
+        </p>
+
+        <p>
+            <strong>Tên sản phẩm:</strong>
+            @Model.Name
+        </p>
+
+        <p>
+            <strong>Giá:</strong>
+            @Model.Price.ToString("N0") VNĐ
+        </p>
+
+        <p>
+            <strong>Giá bán:</strong>
+            @Model.SalePrice.ToString("N0") VNĐ
+        </p>
+
+        <p>
+            <strong>Danh mục:</strong>
+            @Model.CategoryId
+        </p>
+
+        <p>
+            <strong>Mô tả:</strong>
+            @Model.Description
+        </p>
+
+    </div>
+</div>
+
+<br />
+
+<a asp-action="Edit"
+   asp-route-id="@Model.Id"
+   class="btn btn-warning">
+    Sửa
+</a>
+
+<a asp-action="Index"
+   class="btn btn-secondary">
+    Quay lại
+</a>

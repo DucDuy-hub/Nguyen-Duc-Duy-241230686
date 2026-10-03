@@ -1,0 +1,80 @@
+﻿@model IEnumerable<NetCoreNDDLAB5.Models.Product>
+
+@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+}
+
+<h1>Danh sách sản phẩm</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">
+        Thêm sản phẩm
+    </a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Ảnh</th>
+            <th>Tên sản phẩm</th>
+            <th>Giá</th>
+            <th>Giá bán</th>
+            <th>Danh mục</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+
+                <td>
+                    @if (!string.IsNullOrEmpty(item.Image))
+                    {
+                        <img src="@item.Image"
+                             width="100"
+                             height="80" />
+                    }
+                </td>
+
+                <td>@item.Name</td>
+
+                <td>
+                    @item.Price.ToString("N0") VNĐ
+                </td>
+
+                <td>
+                    @item.SalePrice.ToString("N0") VNĐ
+                </td>
+
+                <td>
+                    @item.CategoryId
+                </td>
+
+                <td>
+                    <a asp-action="Details"
+                       asp-route-id="@item.Id">
+                        Chi tiết
+                    </a>
+
+                    |
+
+                    <a asp-action="Edit"
+                       asp-route-id="@item.Id">
+                        Sửa
+                    </a>
+
+                    |
+
+                    <a asp-action="Delete"
+                       asp-route-id="@item.Id">
+                        Xóa
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

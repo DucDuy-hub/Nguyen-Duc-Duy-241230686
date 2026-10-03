@@ -1,0 +1,72 @@
+﻿@model NetCoreNDDLAB5.Models.Product
+
+@{
+    ViewData["Title"] = "Xóa sản phẩm";
+}
+
+<h1>Xóa sản phẩm</h1>
+
+<h3>Bạn có chắc muốn xóa sản phẩm này không?</h3>
+
+<div class="card" style="width: 500px;">
+    <div class="card-body">
+
+        @if (!string.IsNullOrEmpty(Model.Image))
+        {
+            <div class="mb-3">
+                <img src="@Model.Image"
+                     style="width: 200px; height: auto;" />
+            </div>
+        }
+
+        <p>
+            <strong>Id:</strong>
+            @Model.Id
+        </p>
+
+        <p>
+            <strong>Tên sản phẩm:</strong>
+            @Model.Name
+        </p>
+
+        <p>
+            <strong>Giá:</strong>
+            @Model.Price.ToString("N0") VNĐ
+        </p>
+
+        <p>
+            <strong>Giá bán:</strong>
+            @Model.SalePrice.ToString("N0") VNĐ
+        </p>
+
+        <p>
+            <strong>Danh mục:</strong>
+            @Model.CategoryId
+        </p>
+
+        <p>
+            <strong>Mô tả:</strong>
+            @Model.Description
+        </p>
+
+        <form asp-action="DeleteConfirmed"
+              method="post">
+
+            <input type="hidden"
+                   name="id"
+                   value="@Model.Id" />
+
+            <button type="submit"
+                    class="btn btn-danger">
+                Xác nhận xóa
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+                Hủy
+            </a>
+
+        </form>
+
+    </div>
+</div>
