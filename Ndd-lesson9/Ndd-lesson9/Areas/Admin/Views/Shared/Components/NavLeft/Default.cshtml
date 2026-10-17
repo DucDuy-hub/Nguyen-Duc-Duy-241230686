@@ -1,0 +1,21 @@
+@{
+    var activeController = ViewData["ActiveController"] as string;
+}
+<aside class="main-sidebar sidebar-dark-primary elevation-4 admin-sidebar">
+    <a class="brand-link admin-brand" asp-area="" asp-controller="Home" asp-action="Index"><span class="admin-brand-symbol">M</span><span class="brand-text"><strong>MỘC STUDIO</strong><small>CONTENT MANAGER</small></span></a>
+    <div class="sidebar">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex admin-profile"><div class="image"><span class="admin-profile-avatar">M</span></div><div class="info"><span class="d-block admin-profile-name">Mộc Admin</span><small>Đang hoạt động</small></div><i></i></div>
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column admin-nav" data-widget="treeview" role="menu">
+                <li class="nav-header sidebar-caption">KHÔNG GIAN LÀM VIỆC</li>
+                <li class="nav-item"><a class="nav-link @(activeController == "Dashboard" ? "active" : "")" asp-area="Admin" asp-controller="Dashboard" asp-action="Index"><i class="nav-icon fas fa-chart-pie"></i><p>Tổng quan</p></a></li>
+                <li class="nav-header sidebar-caption">QUẢN LÝ NỘI DUNG</li>
+                <li class="nav-item"><a class="nav-link @(activeController == "Category" ? "active" : "")" asp-area="Admin" asp-controller="Category" asp-action="Index"><i class="nav-icon fas fa-th-large"></i><p>Danh mục</p></a></li>
+                <li class="nav-item"><a class="nav-link @(activeController == "Product" ? "active" : "")" asp-area="Admin" asp-controller="Product" asp-action="Index"><i class="nav-icon fas fa-mug-hot"></i><p>Sản phẩm</p></a></li>
+                <li class="nav-item"><a class="nav-link @(activeController == "Banner" ? "active" : "")" asp-area="Admin" asp-controller="Banner" asp-action="Index"><i class="nav-icon far fa-images"></i><p>Banner</p></a></li>
+                <li class="nav-item"><a class="nav-link @(activeController == "Blog" ? "active" : "")" asp-area="Admin" asp-controller="Blog" asp-action="Index"><i class="nav-icon far fa-edit"></i><p>Bài viết</p></a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-bottom"><span>✳</span><p>Một khoảng dừng<br />cho những điều tử tế.</p><a asp-area="" asp-controller="Home" asp-action="Index">Mở trang cửa hàng ↗</a></div>
+    </div>
+</aside>

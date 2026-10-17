@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Tách trà xanh">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dfe7dc"/><stop offset="1" stop-color="#a7b49e"/></linearGradient><linearGradient id="cup" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fbf8ee"/><stop offset="1" stop-color="#d8ddce"/></linearGradient></defs>
+  <rect width="800" height="600" fill="url(#bg)"/><circle cx="625" cy="121" r="90" fill="#eff0dd" opacity=".42"/><path d="M0 479c169-75 282 15 438-12s241-71 362-17v150H0Z" fill="#7c8e76" opacity=".38"/>
+  <ellipse cx="400" cy="449" rx="210" ry="42" fill="#6b7863" opacity=".3"/><ellipse cx="400" cy="421" rx="190" ry="47" fill="#f4f0e5"/><ellipse cx="400" cy="407" rx="149" ry="30" fill="#78966e"/>
+  <path d="M265 278h270l-26 133c-8 42-39 67-82 67h-52c-43 0-74-25-82-67Z" fill="url(#cup)"/><path d="M525 304h46c49 0 52 69 7 88l-47 20" fill="none" stroke="#ece9dd" stroke-width="24"/>
+  <path d="M399 155c-18 34-47 53-48 83m83-83c-18 34-47 53-48 83" fill="none" stroke="#f7f5e8" stroke-linecap="round" stroke-width="8" opacity=".7"/>
+  <path d="M105 198c47-76 93-80 140-68-14 53-52 89-126 92m553 83c29-65 69-84 116-79-5 51-36 88-105 105" fill="#72886c"/><path d="M128 217c38-37 70-58 105-76m497 124c27-29 49-44 78-55" fill="none" stroke="#d8e0cc" stroke-width="3" opacity=".65"/>
+</svg>

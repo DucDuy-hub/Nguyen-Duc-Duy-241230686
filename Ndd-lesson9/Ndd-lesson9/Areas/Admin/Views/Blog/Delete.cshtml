@@ -1,0 +1,5 @@
+@model Blog
+@{
+    ViewData["Title"] = "Xóa bài viết";
+}
+<section class="admin-card delete-card"><span class="delete-mark">×</span><p class="admin-overline">XÁC NHẬN XÓA</p><h2>Bạn muốn xóa bài viết này?</h2><p>Bài viết <strong>@Model.Name</strong> sẽ bị xóa khỏi danh sách.</p><form asp-action="Delete" asp-route-id="@Model.Id" method="post"><div class="form-actions"><a class="admin-secondary-button" asp-action="Index">Quay lại</a><button class="admin-danger-button" type="submit">Xóa bài viết</button></div></form></section>

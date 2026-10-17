@@ -1,0 +1,5 @@
+@model Product
+@{
+    ViewData["Title"] = "Chi tiết sản phẩm";
+}
+<section class="admin-card detail-card"><div class="admin-card-heading"><div><p class="admin-overline">THỰC ĐƠN · #@Model.Id.ToString("000")</p><h2>@Model.Name</h2></div><a class="admin-primary-button" asp-action="Edit" asp-route-id="@Model.Id">Sửa sản phẩm <span>↗</span></a></div><dl class="detail-list"><dt>Danh mục</dt><dd>@Model.Category?.Name</dd><dt>Giá</dt><dd>@Model.Price.ToString("N0")đ</dd><dt>Giá khuyến mãi</dt><dd>@(Model.SalePrice > 0 ? Model.SalePrice.ToString("N0") + "đ" : "—")</dd><dt>Trạng thái</dt><dd><span class="status-pill @(Model.Status == 1 ? "status-on" : "status-off")">@(Model.Status == 1 ? "Đang bán" : "Tạm ẩn")</span></dd><dt>Ngày tạo</dt><dd>@Model.CreatedDate.ToString("dd/MM/yyyy")</dd><dt>Hình ảnh</dt><dd>@(Model.Image ?? "—")</dd><dt>Mô tả</dt><dd>@(Model.Description ?? "—")</dd></dl><a class="admin-secondary-button" asp-action="Index">Quay lại danh sách</a></section>

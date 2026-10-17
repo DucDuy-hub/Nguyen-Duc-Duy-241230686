@@ -1,0 +1,6 @@
+@model Banner
+@{
+    ViewData["Title"] = "Thêm banner";
+}
+<section class="admin-card form-card"><div class="admin-card-heading"><div><p class="admin-overline">TRANG CHỦ</p><h2>Thông tin banner</h2></div></div><form asp-action="Create" method="post"><div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div><partial name="_BannerFields" model="Model" /><div class="form-actions"><a class="admin-secondary-button" asp-action="Index">Hủy</a><button class="admin-primary-button" type="submit">Lưu banner <span>↗</span></button></div></form></section>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

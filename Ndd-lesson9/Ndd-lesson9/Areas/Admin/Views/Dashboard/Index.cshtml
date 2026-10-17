@@ -1,0 +1,32 @@
+@model AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Tổng quan";
+}
+
+<div class="dashboard-welcome"><div><span class="welcome-date">MỘC STUDIO · HÔM NAY</span><h2>Xin chào, Mộc.</h2><p>Đây là tình hình nội dung của cửa hàng.</p></div><div class="welcome-flower">✳</div></div>
+
+<div class="stat-grid">
+    <a class="stat-card stat-coffee" asp-area="Admin" asp-controller="Product" asp-action="Index"><span class="stat-icon">◈</span><span class="stat-label">SẢN PHẨM</span><strong>@Model.ProductCount.ToString("00")</strong><span class="stat-foot">Đang có trong thực đơn <b>↗</b></span></a>
+    <a class="stat-card stat-sage" asp-area="Admin" asp-controller="Category" asp-action="Index"><span class="stat-icon">▦</span><span class="stat-label">DANH MỤC</span><strong>@Model.CategoryCount.ToString("00")</strong><span class="stat-foot">Nhóm sản phẩm <b>↗</b></span></a>
+    <a class="stat-card stat-blue" asp-area="Admin" asp-controller="Banner" asp-action="Index"><span class="stat-icon">▤</span><span class="stat-label">BANNER</span><strong>@Model.BannerCount.ToString("00")</strong><span class="stat-foot">Nội dung hiển thị <b>↗</b></span></a>
+    <a class="stat-card stat-rose" asp-area="Admin" asp-controller="Blog" asp-action="Index"><span class="stat-icon">▧</span><span class="stat-label">BÀI VIẾT</span><strong>@Model.BlogCount.ToString("00")</strong><span class="stat-foot">Câu chuyện của Mộc <b>↗</b></span></a>
+</div>
+
+<div class="dashboard-grid">
+    <section class="admin-card recent-card">
+        <div class="admin-card-heading"><div><p class="admin-overline">CẬP NHẬT GẦN ĐÂY</p><h2>Sản phẩm trong thực đơn</h2></div><a class="admin-link" asp-area="Admin" asp-controller="Product" asp-action="Index">Xem tất cả ↗</a></div>
+        <div class="table-responsive">
+            <table class="table admin-table align-middle mb-0"><thead><tr><th>SẢN PHẨM</th><th>DANH MỤC</th><th>GIÁ BÁN</th><th>TRẠNG THÁI</th></tr></thead><tbody>
+            @foreach (var product in Model.RecentProducts)
+            {
+                <tr><td><div class="table-product"><img src="@(product.Image ?? "/images/coffee.svg")" alt="" /><span>@product.Name</span></div></td><td>@product.Category?.Name</td><td>@((product.SalePrice > 0 ? product.SalePrice : product.Price).ToString("N0"))đ</td><td><span class="status-pill @(product.Status == 1 ? "status-on" : "status-off")">@(product.Status == 1 ? "Đang bán" : "Tạm ẩn")</span></td></tr>
+            }
+            @if (Model.RecentProducts.Count == 0)
+            {
+                <tr><td colspan="4" class="empty-cell">Chưa có sản phẩm. <a asp-area="Admin" asp-controller="Product" asp-action="Create">Thêm món đầu tiên ↗</a></td></tr>
+            }
+            </tbody></table>
+        </div>
+    </section>
+    <aside class="admin-card quick-card"><p class="admin-overline">BẮT ĐẦU NHANH</p><h2>Thêm nội dung</h2><p>Tạo sản phẩm, danh mục hoặc câu chuyện mới cho cửa hàng.</p><a asp-area="Admin" asp-controller="Product" asp-action="Create"><span>＋</span><div><strong>Thêm sản phẩm</strong><small>Cập nhật thực đơn</small></div><b>↗</b></a><a asp-area="Admin" asp-controller="Category" asp-action="Create"><span>＋</span><div><strong>Thêm danh mục</strong><small>Sắp xếp thực đơn</small></div><b>↗</b></a><a asp-area="Admin" asp-controller="Blog" asp-action="Create"><span>＋</span><div><strong>Viết bài mới</strong><small>Chia sẻ cùng khách hàng</small></div><b>↗</b></a></aside>
+</div>

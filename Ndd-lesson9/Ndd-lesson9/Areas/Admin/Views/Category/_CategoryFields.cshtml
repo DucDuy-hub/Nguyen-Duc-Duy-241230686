@@ -1,0 +1,9 @@
+@model Category
+<input asp-for="Id" type="hidden" />
+<div class="admin-form-grid">
+    <div class="admin-form-field"><label asp-for="Name"></label><input asp-for="Name" class="form-control" placeholder="Ví dụ: Cà phê" /><span asp-validation-for="Name" class="text-danger"></span></div>
+    <div class="admin-form-field"><label asp-for="Status"></label><select asp-for="Status" class="form-select"><option value="1">Hiển thị</option><option value="0">Tạm ẩn</option></select><span asp-validation-for="Status" class="text-danger"></span></div>
+    <div class="admin-form-field"><label asp-for="CreatedDate"></label><input asp-for="CreatedDate" type="date" class="form-control" /><span asp-validation-for="CreatedDate" class="text-danger"></span></div>
+    <div class="admin-form-field"><label asp-for="Image">Đường dẫn hình ảnh</label><input asp-for="Image" class="form-control" placeholder="/images/coffee.svg" /><span asp-validation-for="Image" class="text-danger"></span></div>
+    <div class="admin-form-field field-full"><label asp-for="Description"></label><textarea asp-for="Description" class="form-control" rows="4" placeholder="Mô tả ngắn về danh mục"></textarea><span asp-validation-for="Description" class="text-danger"></span></div>
+</div>

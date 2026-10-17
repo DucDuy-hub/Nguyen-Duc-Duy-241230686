@@ -1,0 +1,68 @@
+@model StoreHomeViewModel
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+<section class="hero-section">
+    <img class="hero-background" src="@(Model.FeaturedBanner?.Image ?? "/images/coffee.svg")" alt="" />
+    <div class="hero-shade"></div>
+    <div class="public-container hero-content">
+        <p class="eyebrow">MỘC STUDIO · COFFEE & BAKERY</p>
+        <h1>Một chút bình yên<br />trong tách cà phê.</h1>
+        <p class="hero-copy">@(Model.FeaturedBanner?.Description ?? "Ghé Mộc để thưởng thức hương vị thân quen, trong một không gian đủ chậm để bạn nghỉ ngơi.")</p>
+        <a class="button-light" href="#menu">Xem thực đơn <span>↗</span></a>
+        <div class="hero-caption"><span>01</span><span>Hương vị được chọn bằng sự tử tế</span></div>
+    </div>
+    <div class="hero-side-note">RANG MỚI MỖI NGÀY · PHA BẰNG SỰ CHĂM CHÚT</div>
+</section>
+
+<section class="welcome-section public-container" id="story">
+    <div class="welcome-kicker"><span class="tiny-star">✳</span><span>CHÀO BẠN, MỘC Ở ĐÂY</span></div>
+    <div class="welcome-copy"><h2>Những điều giản dị<br /><em>làm nên một ngày đẹp.</em></h2><p>Mùi cà phê vừa xay, chiếc bánh còn ấm và một góc nắng bên cửa sổ. Ở Mộc, mọi thứ được chuẩn bị vừa đủ để bạn thấy thoải mái như đang ở nhà.</p><a class="text-link" href="#contact">Tìm hiểu về Mộc <span>⟶</span></a></div>
+    <div class="welcome-stamp"><span>TAKE A<br />BREATH</span><b>✳</b></div>
+</section>
+
+<section class="menu-section" id="menu">
+    <div class="public-container">
+        <div class="section-heading"><div><p class="eyebrow eyebrow-dark">THỰC ĐƠN CỦA MỘC</p><h2>Thân quen, theo cách<br /><em>của riêng bạn.</em></h2></div><a class="text-link" href="#contact">Ghé quầy gọi món <span>⟶</span></a></div>
+        <div class="category-grid">
+            @for (var i = 0; i < Model.Categories.Count; i++)
+            {
+                var category = Model.Categories[i];
+                <article class="category-card">
+                    <span class="category-number">0@(i + 1)</span>
+                    <div class="category-art category-art-@(i + 1)"><span>@(i == 0 ? "☕" : i == 1 ? "◌" : "✳")</span></div>
+                    <div class="category-card-copy"><h3>@category.Name</h3><p>@(category.Description ?? "Lựa chọn được Mộc chuẩn bị mỗi ngày.")</p><a href="#featured" aria-label="Xem @category.Name">↗</a></div>
+                </article>
+            }
+            @if (Model.Categories.Count == 0)
+            {
+                <p class="empty-state">Thực đơn đang được cập nhật.</p>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="featured-section public-container" id="featured">
+    <div class="section-heading"><div><p class="eyebrow eyebrow-dark">ĐƯỢC YÊU THÍCH</p><h2>Món ngon hôm nay</h2></div><span class="subtle-note">Làm mới mỗi sáng tại Mộc</span></div>
+    <div class="product-grid">
+        @foreach (var product in Model.FeaturedProducts)
+        {
+            <article class="product-card">
+                <div class="product-art"><img src="@(product.Image ?? "/images/coffee.svg")" alt="" /><span class="product-category">@(product.Category?.Name ?? "Mộc chọn")</span></div>
+                <div class="product-copy"><h3>@product.Name</h3><p>@(product.Description ?? "Được làm mới mỗi ngày.")</p><strong>@((product.SalePrice > 0 ? product.SalePrice : product.Price).ToString("N0"))đ</strong></div>
+            </article>
+        }
+        @if (Model.FeaturedProducts.Count == 0)
+        {
+            <p class="empty-state">Món mới đang được chuẩn bị.</p>
+        }
+    </div>
+</section>
+
+<section class="journal-section" id="journal">
+    <div class="public-container journal-inner">
+        <div><p class="eyebrow">GÓC NHỎ CỦA MỘC</p><h2>Thêm một khoảng<br /><em>lặng cho hôm nay.</em></h2><p>Đọc những câu chuyện về hạt cà phê, cách pha và các món bánh theo mùa.</p><a class="button-light" asp-area="Admin" asp-controller="Blog" asp-action="Index">Khám phá góc Mộc <span>↗</span></a></div>
+        <div class="journal-orbit"><div class="orbit-ring"></div><span class="orbit-center">M<br /><small>EST. 2021</small></span><span class="orbit-label">COFFEE · PEOPLE · SLOW DAYS</span></div>
+    </div>
+</section>
