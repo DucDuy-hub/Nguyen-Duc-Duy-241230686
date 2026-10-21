@@ -1,0 +1,39 @@
+@model IEnumerable<Ndd_lab2.Models.MenuItem>
+
+@{
+    var currentUrl = $"{Context.Request.Path}{Context.Request.QueryString}";
+}
+
+<div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+                @foreach (var group in Model.GroupBy(item => item.Section))
+                {
+                    <div class="sb-sidenav-menu-heading">@group.Key</div>
+                    @foreach (var item in group)
+                    {
+                        var isActive = string.Equals(currentUrl, item.Url, StringComparison.OrdinalIgnoreCase)
+                            || (currentUrl == "/" && item.Url == "/");
+                        <a class="nav-link @(isActive ? "active" : string.Empty)" href="@item.Url"
+                           aria-current="@(isActive ? "page" : null)">
+                            <div class="sb-nav-link-icon"><i class="@item.Icon" aria-hidden="true"></i></div>
+                            @item.Title
+                        </a>
+                        @foreach (var child in item.Children)
+                        {
+                            <a class="nav-link ms-3" href="@child.Url">
+                                <div class="sb-nav-link-icon"><i class="@child.Icon" aria-hidden="true"></i></div>
+                                @child.Title
+                            </a>
+                        }
+                    }
+                }
+            </div>
+        </div>
+        <div class="sb-sidenav-footer">
+            <div class="small">Logged in as:</div>
+            Admin
+        </div>
+    </nav>
+</div>

@@ -1,0 +1,146 @@
+@model IEnumerable<Ndd_lab2.Models.Student>
+
+@{
+    ViewData["Title"] = "Students";
+    Layout = "~/Views/Shared/MyLayoutHelper.cshtml";
+}
+
+<div class="container-fluid px-2 px-lg-3 py-2">
+    <div class="mb-2">
+        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#createStudentModal">
+            Create Student
+        </button>
+    </div>
+
+    <div class="table-responsive">
+        <table id="studentsTable" class="table table-striped table-hover align-middle mb-0" data-searchable>
+            <thead>
+                <tr>
+                    <th scope="col">Mã</th>
+                    <th scope="col">Họ tên</th>
+                    <th scope="col">Ngày sinh</th>
+                    <th scope="col">Ngành</th>
+                    <th scope="col">Giới tính</th>
+                    <th scope="col">Hệ ĐT</th>
+                    <th scope="col">Địa chỉ</th>
+                    <th scope="col">Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var student in Model)
+                {
+                    <tr>
+                        <td>@student.Id</td>
+                        <td>@student.FullName</td>
+                        <td>@student.BirthDate.ToString("M/d/yyyy h:mm:ss tt", System.Globalization.CultureInfo.GetCultureInfo("en-US"))</td>
+                        <td>@student.Major</td>
+                        <td>@student.Gender</td>
+                        <td>@student.ProgramType</td>
+                        <td>@student.ClassName</td>
+                        <td>@student.Email</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="createStudentModal" tabindex="-1" aria-labelledby="createStudentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <form id="createStudentForm">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-5" id="createStudentModalLabel">Create Student</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label" for="studentName">Họ tên</label>
+                            <input class="form-control" id="studentName" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="studentBirthDate">Ngày sinh</label>
+                            <input class="form-control" id="studentBirthDate" type="date" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="studentMajor">Ngành</label>
+                            <input class="form-control" id="studentMajor" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="studentGender">Giới tính</label>
+                            <select class="form-select" id="studentGender" required>
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="studentProgram">Hệ đào tạo</label>
+                            <select class="form-select" id="studentProgram" required>
+                                <option>Chính quy</option>
+                                <option>Phi chính quy</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="studentClass">Lớp</label>
+                            <input class="form-control" id="studentClass" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="studentAddress">Địa chỉ</label>
+                            <input class="form-control" id="studentAddress" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="studentEmail">Email</label>
+                            <input class="form-control" id="studentEmail" type="email" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const studentsTable = document.querySelector("#studentsTable");
+        const createStudentForm = document.querySelector("#createStudentForm");
+
+        studentsTable?.addEventListener("click", (event) => {
+            const row = event.target.closest("tbody tr");
+            if (!row) return;
+
+            studentsTable.querySelectorAll("tbody tr").forEach((item) => {
+                item.classList.remove("table-warning");
+            });
+            row.classList.add("table-warning");
+        });
+
+        createStudentForm?.addEventListener("submit", (event) => {
+            event.preventDefault();
+            if (!createStudentForm.reportValidity()) return;
+
+            const values = [
+                String(100 + studentsTable.tBodies[0].rows.length + 1),
+                document.querySelector("#studentName").value.trim(),
+                new Date(`${document.querySelector("#studentBirthDate").value}T00:00:00`).toLocaleDateString("en-US"),
+                document.querySelector("#studentMajor").value.trim(),
+                document.querySelector("#studentGender").value,
+                document.querySelector("#studentProgram").value,
+                document.querySelector("#studentClass").value.trim(),
+                document.querySelector("#studentEmail").value.trim()
+            ];
+            const row = studentsTable.tBodies[0].insertRow();
+
+            values.forEach((value) => {
+                row.insertCell().textContent = value;
+            });
+
+            bootstrap.Modal.getOrCreateInstance(document.querySelector("#createStudentModal")).hide();
+            createStudentForm.reset();
+        });
+    </script>
+}

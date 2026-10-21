@@ -1,0 +1,80 @@
+@{
+    ViewData["Title"] = "Tổng quan";
+    Layout = "~/Views/Shared/MyLayoutHelper.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+    <h1 class="mt-2">Bài thực hành 2: Layout</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Tổng quan</li>
+    </ol>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h2 class="h5">Nội dung đã hoàn thành</h2>
+            <p class="mb-0">
+                Giao diện sử dụng SB Admin, tách các phần dùng chung thành Partial View,
+                hiển thị nội dung trang bằng <code>RenderBody</code> và menu strongly typed bằng ViewComponent.
+            </p>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1" aria-hidden="true"></i>
+            Các thành phần của Layout
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="lab2Features" class="table table-striped table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th scope="col">Yêu cầu</th>
+                            <th scope="col">Triển khai</th>
+                            <th scope="col">Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Layout chính</td>
+                            <td>MyLayout.cshtml</td>
+                            <td><span class="badge bg-success">Hoàn thành</span></td>
+                        </tr>
+                        <tr>
+                            <td>Partial View</td>
+                            <td>TopNav, LeftMenu, Footer</td>
+                            <td><span class="badge bg-success">Hoàn thành</span></td>
+                        </tr>
+                        <tr>
+                            <td>RenderBody và RenderSection</td>
+                            <td>Nội dung trang và Scripts tùy chọn</td>
+                            <td><span class="badge bg-success">Hoàn thành</span></td>
+                        </tr>
+                        <tr>
+                            <td>Strongly Typed ViewComponent</td>
+                            <td>RenderViewComponent với danh sách MenuItem</td>
+                            <td><span class="badge bg-success">Hoàn thành</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-text mt-2">Nhấn vào một dòng để làm nổi bật dòng đó.</div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const featureTable = document.querySelector("#lab2Features");
+
+        featureTable?.addEventListener("click", (event) => {
+            const row = event.target.closest("tbody tr");
+            if (!row) return;
+
+            featureTable.querySelectorAll("tbody tr").forEach((item) => {
+                item.classList.remove("table-warning");
+            });
+            row.classList.add("table-warning");
+        });
+    </script>
+}
