@@ -1,0 +1,95 @@
+﻿
+@model IEnumerable<Ndd_lab1.Models.Student>
+@using System.Linq
+
+@{
+    ViewData["Title"] = "Danh sách sinh viên";
+    Layout = "~/Views/Shared/MyLayoutHelper.cshtml";
+}
+
+<section class="page-heading">
+    <div>
+        <div class="eyebrow">QUẢN LÝ ĐÀO TẠO</div>
+        <h1>Danh sách sinh viên</h1>
+        <p>Quản lý hồ sơ và thông tin sinh viên trong hệ thống.</p>
+    </div>
+    <a asp-controller="Student" asp-action="Create" class="btn btn-primary page-action">
+        <span aria-hidden="true">＋</span> Thêm sinh viên
+    </a>
+</section>
+
+<section class="content-card" aria-labelledby="student-table-title">
+    <header class="content-card-header">
+        <div>
+            <h2 id="student-table-title">Tất cả sinh viên</h2>
+            <p>Danh sách hồ sơ hiện có</p>
+        </div>
+        <span class="record-count" data-result-count>@Model.Count() sinh viên</span>
+    </header>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle student-table" data-student-table>
+            <thead>
+                <tr>
+                    <th scope="col">Mã</th>
+                    <th scope="col">Sinh viên</th>
+                    <th scope="col">Ngày sinh</th>
+                    <th scope="col">Ngành</th>
+                    <th scope="col">Giới tính</th>
+                    <th scope="col">Hệ đào tạo</th>
+                    <th scope="col">Điểm</th>
+                    <th scope="col">Địa chỉ</th>
+                    <th scope="col">Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var s in Model)
+                {
+                    <tr>
+                        <td class="student-id">@s.Id</td>
+                        <td>
+                            <div class="student-cell">
+                                @if (!string.IsNullOrEmpty(s.Image))
+                                {
+                                    <img class="student-avatar" src="@s.Image" alt="Ảnh đại diện của @s.Name" />
+                                }
+                                else
+                                {
+                                    <span class="student-avatar avatar-placeholder" aria-hidden="true">@(s.Name?.FirstOrDefault())</span>
+                                }
+                                <span class="student-name">@s.Name</span>
+                            </div>
+                        </td>
+                        <td>@(s.DateOfBirth?.ToString("dd/MM/yyyy") ?? "—")</td>
+                        <td>
+                            @(s.Branch switch
+                            {
+                                Ndd_lab1.Models.Branch.IT => "CNTT",
+                                Ndd_lab1.Models.Branch.BE => "Kinh tế",
+                                Ndd_lab1.Models.Branch.CE => "Công trình",
+                                Ndd_lab1.Models.Branch.EE => "Điện - Điện tử",
+                                _ => "—"
+                            })
+                        </td>
+                        <td>@(s.Gender switch
+                            {
+                                Ndd_lab1.Models.Gender.Male => "Nam",
+                                Ndd_lab1.Models.Gender.Female => "Nữ",
+                                _ => "—"
+                            })</td>
+                        <td><span class="status-badge @(s.IsRegular ? "status-regular" : "status-nonregular")">@(s.IsRegular ? "Chính quy" : "Phi chính quy")</span></td>
+                        <td>@(s.Score?.ToString("0.0") ?? "—")</td>
+                        <td>@s.Address</td>
+                        <td><a class="student-email" href="mailto:@s.Email">@s.Email</a></td>
+                    </tr>
+                }
+                <tr data-empty-state hidden>
+                    <td colspan="9" class="empty-state">Không tìm thấy sinh viên phù hợp.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/student-list.js" asp-append-version="true"></script>
+}

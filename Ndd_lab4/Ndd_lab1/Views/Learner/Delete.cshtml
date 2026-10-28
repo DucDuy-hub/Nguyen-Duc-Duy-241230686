@@ -1,0 +1,55 @@
+@model Ndd_lab1.Models.Learner
+@using System.Linq
+
+@{
+    ViewData["Title"] = "Xóa người học";
+}
+
+<section class="page-heading">
+    <div>
+        <div class="eyebrow">DATA ACCESS · ENTITY FRAMEWORK</div>
+        <h1>Xóa người học</h1>
+        <p>Xem thông tin trước khi xác nhận thao tác.</p>
+    </div>
+</section>
+
+<section class="content-card form-card learner-form">
+    @if (TempData["DeleteError"] is string deleteError)
+    {
+        <div class="alert alert-warning" role="alert">@deleteError</div>
+    }
+
+    <h2 class="h5 mb-3">Bạn có chắc chắn muốn xóa người học này?</h2>
+    <dl class="learner-details">
+        <dt>Mã</dt><dd>@Model.LearnerID</dd>
+        <dt>Tên</dt><dd>@Model.FirstMidName</dd>
+        <dt>Họ</dt><dd>@Model.LastName</dd>
+        <dt>Chuyên ngành</dt><dd>@Model.Major?.MajorName</dd>
+        <dt>Ngày nhập học</dt><dd>@Model.EnrollmentDate.ToString("dd/MM/yyyy")</dd>
+        <dt>Học phần đã đăng ký</dt><dd>@Model.Enrollments.Count</dd>
+    </dl>
+
+    @if (Model.Enrollments.Count > 0)
+    {
+        <div class="alert alert-warning mb-3" role="alert">
+            Không thể xóa vì người học đã có đăng ký học phần. Hãy giữ lại hồ sơ để bảo toàn bảng điểm.
+        </div>
+        @if (Model.Enrollments.Any(enrollment => enrollment.Course is not null))
+        {
+            <ul class="enrollment-list">
+                @foreach (var enrollment in Model.Enrollments)
+                {
+                    <li>@enrollment.Course?.Title — điểm @enrollment.Grade</li>
+                }
+            </ul>
+        }
+    }
+    else
+    {
+        <form asp-action="Delete" asp-route-id="@Model.LearnerID" method="post" class="form-actions">
+            <input type="hidden" asp-for="LearnerID" />
+            <a asp-action="Index" class="btn btn-outline-secondary">Hủy</a>
+            <button type="submit" class="btn btn-danger">Xóa người học</button>
+        </form>
+    }
+</section>

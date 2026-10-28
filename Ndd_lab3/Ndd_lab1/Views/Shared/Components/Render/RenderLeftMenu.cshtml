@@ -1,0 +1,35 @@
+@model IEnumerable<Ndd_lab1.Models.MenuItem>
+
+@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+}
+
+<nav class="sidenav" aria-label="Menu quản trị">
+    <div class="sidenav-scroll">
+        <div class="sidenav-section-label">CORE</div>
+        <a class="sidenav-link @(currentController == "Home" ? "active" : "")" asp-controller="Home" asp-action="Index">
+            <span class="sidenav-icon" aria-hidden="true">◉</span>Dashboard
+        </a>
+
+        <div class="sidenav-section-label">ADDONS</div>
+        @foreach (var item in Model)
+        {
+            var icon = item.Name switch
+            {
+                "Branches" => "◇",
+                "Students" => "♙",
+                "Subjects" => "▤",
+                "Courses" => "▱",
+                _ => "•"
+            };
+            var isActive = item.Name == "Students" && currentController == "Student";
+            <a class="sidenav-link @(isActive ? "active" : "")" href="@item.Link" data-menu-id="@item.Id">
+                <span class="sidenav-icon" aria-hidden="true">@icon</span>@item.Name
+            </a>
+        }
+    </div>
+    <div class="sidenav-footer">
+        <span>Đã đăng nhập với tư cách</span>
+        <strong>Quản trị viên</strong>
+    </div>
+</nav>

@@ -1,0 +1,22 @@
+<nav class="topbar" aria-label="Thanh điều hướng chính">
+    <div class="topbar-brand-group">
+        <a class="topbar-brand" asp-controller="Home" asp-action="Index">Management System</a>
+        <button class="sidebar-toggle" type="button" data-sidebar-toggle aria-controls="layoutSidenav_nav" aria-expanded="true" aria-label="Ẩn hoặc hiện menu">
+            <span aria-hidden="true">☰</span>
+        </button>
+    </div>
+    <div class="topbar-actions">
+        @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Student" && ViewContext.RouteData.Values["action"]?.ToString() == "Index")
+        {
+            <label class="topbar-search">
+                <span class="visually-hidden">Tìm sinh viên</span>
+                <input type="search" data-student-search placeholder="Tìm sinh viên..." autocomplete="off" />
+                <span class="search-icon" aria-hidden="true">⌕</span>
+            </label>
+        }
+        <div class="user-badge" aria-label="Tài khoản quản trị viên">
+            <span class="user-avatar" aria-hidden="true">AD</span>
+            <span class="user-name">Quản trị viên</span>
+        </div>
+    </div>
+</nav>

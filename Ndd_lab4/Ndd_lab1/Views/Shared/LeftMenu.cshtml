@@ -1,0 +1,23 @@
+@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+}
+
+<nav class="sidenav" aria-label="Menu quản trị">
+    <div class="sidenav-scroll">
+        <div class="sidenav-section-label">CORE</div>
+        <a class="sidenav-link @(currentController == "Home" ? "active" : "")" asp-controller="Home" asp-action="Index">
+            <span class="sidenav-icon" aria-hidden="true">◉</span>Dashboard
+        </a>
+
+        <div class="sidenav-section-label">ADDONS</div>
+        <a class="sidenav-link" href="#branches"><span class="sidenav-icon" aria-hidden="true">◇</span>Branches</a>
+        <a class="sidenav-link @(currentController == "Student" ? "active" : "")" asp-controller="Student" asp-action="Index"><span class="sidenav-icon" aria-hidden="true">♙</span>Students</a>
+        <a class="sidenav-link" href="#subjects"><span class="sidenav-icon" aria-hidden="true">▤</span>Subjects</a>
+        <a class="sidenav-link" href="#courses"><span class="sidenav-icon" aria-hidden="true">▱</span>Courses</a>
+        <a class="sidenav-link @(currentController == "Learner" ? "active" : "")" asp-controller="Learner" asp-action="Index"><span class="sidenav-icon" aria-hidden="true">♧</span>Learners</a>
+    </div>
+    <div class="sidenav-footer">
+        <span>Đã đăng nhập với tư cách</span>
+        <strong>Quản trị viên</strong>
+    </div>
+</nav>

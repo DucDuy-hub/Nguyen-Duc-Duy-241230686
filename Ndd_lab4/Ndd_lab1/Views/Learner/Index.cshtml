@@ -1,0 +1,57 @@
+@model IEnumerable<Ndd_lab1.Models.Learner>
+@using System.Linq
+
+@{
+    ViewData["Title"] = "Danh sách người học";
+}
+
+<section class="page-heading">
+    <div>
+        <div class="eyebrow">DATA ACCESS · ENTITY FRAMEWORK</div>
+        <h1>Danh sách người học</h1>
+        <p>Quản lý hồ sơ người học và chuyên ngành trong cơ sở dữ liệu.</p>
+    </div>
+    <a asp-action="Create" class="btn btn-primary page-action">＋ Thêm người học</a>
+</section>
+
+<section class="content-card" aria-labelledby="learner-table-title">
+    <header class="content-card-header">
+        <div>
+            <h2 id="learner-table-title">Tất cả người học</h2>
+            <p>Thông tin được lưu trong cơ sở dữ liệu School</p>
+        </div>
+        <span class="record-count">@Model.Count() người học</span>
+    </header>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle student-table mb-0">
+            <thead>
+                <tr>
+                    <th scope="col">Mã</th>
+                    <th scope="col">Tên</th>
+                    <th scope="col">Họ</th>
+                    <th scope="col">Chuyên ngành</th>
+                    <th scope="col">Ngày nhập học</th>
+                    <th scope="col">Học phần</th>
+                    <th scope="col">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var learner in Model)
+                {
+                    <tr>
+                        <td class="student-id">@learner.LearnerID</td>
+                        <td class="student-name">@learner.FirstMidName</td>
+                        <td>@learner.LastName</td>
+                        <td>@learner.Major?.MajorName</td>
+                        <td>@learner.EnrollmentDate.ToString("dd/MM/yyyy")</td>
+                        <td>@learner.Enrollments.Count</td>
+                        <td class="learner-actions">
+                            <a asp-action="Edit" asp-route-id="@learner.LearnerID">Sửa</a>
+                            <a asp-action="Delete" asp-route-id="@learner.LearnerID">Xóa</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
