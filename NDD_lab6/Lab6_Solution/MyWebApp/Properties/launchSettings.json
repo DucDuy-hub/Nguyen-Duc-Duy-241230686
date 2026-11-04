@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "MyWebApp": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "Learner",
+      "applicationUrl": "https://localhost:7255;http://localhost:5255",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

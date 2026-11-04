@@ -1,0 +1,64 @@
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+}
+@model IEnumerable<Learner>
+<div class="ms-2 mx-2">
+    <h1>Learner List</h1>
+    @await Component.InvokeAsync("Major")
+    <!-- Form tìm kiếm -->
+    <form id="searchForm" class="my-2" style="max-width: 320px;">
+        <div class="input-group">
+            <input id="keyword" class="form-control" name="keyword"
+                   type="text" placeholder="Search learner" />
+            <button id="btnSearch" class="btn btn-primary" type="button">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </form>
+    <!-- Vùng hiển thị kết quả AJAX: bảng Learner + thanh nav-phân trang (nằm trong LearnerTable) -->
+    <div id="content">
+        <partial name="LearnerTable" model="Model" />
+    </div>
+    <a asp-action="Create" class="btn btn-primary">Create New Student</a>
+</div>
+@section Scripts {
+    <script>
+        // Gửi AJAX tới action LearnerFilter rồi hiển thị kết quả vào div#content
+        function loadLearners(data) {
+            $.ajax({
+                url: '@Url.Action("LearnerFilter", "Learner")',
+                data: data,
+                success: function (response) {
+                    $("div#content").html(response);
+                }
+            });
+        }
+
+        // Click vào page-item (nằm trong vùng AJAX nên dùng sự kiện ủy quyền từ body)
+        $('body').on('click', 'li.page-item', function (e) {
+            loadLearners({
+                mid: $(this).attr("data-mid"),
+                keyword: $(this).attr("data-keyword"),
+                pageIndex: $(this).attr("data-page")
+            });
+        });
+
+        // Click vào chuyên ngành: lọc theo MajorID (về trang 1)
+        $(".nav li").click(function (e) {
+            $("#keyword").val("");
+            loadLearners({ mid: $(this).attr("id") });
+        });
+
+        // Click nút Search: tìm kiếm theo tên (về trang 1)
+        $("button#btnSearch").click(function (e) {
+            loadLearners({ keyword: $("#keyword").val() });
+        });
+
+        // Nhấn Enter trong ô tìm kiếm cũng tìm kiếm, không submit form
+        $("#searchForm").on("submit", function (e) {
+            e.preventDefault();
+            $("#btnSearch").click();
+        });
+    </script>
+}

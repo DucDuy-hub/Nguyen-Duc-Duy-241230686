@@ -1,0 +1,43 @@
+@model IEnumerable<Learner>
+@{
+    // ViewBag (= ViewData) do action Index / LearnerFilter gửi về
+    int pageNum = ViewData["pageNum"] is int total ? total : 0;
+    int currentPage = ViewData["page"] is int cur ? cur : 1;
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Mã</th>
+            <th>Tên</th>
+            <th>Họ</th>
+            <th>Ngành</th>
+            <th>Ngày Nhập Học</th>
+            <th>Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model)
+        {
+            <tr>
+                <td>@s.LearnerID</td>
+                <td>@s.FirstMidName</td>
+                <td>@s.LastName</td>
+                <td>@s.Major?.MajorName</td>
+                <td>@s.EnrollmentDate</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@s.LearnerID">Edit</a>|
+                    <a asp-action="Delete" asp-route-id="@s.LearnerID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<!-- Thanh nav-phân trang: mỗi page-item mang theo mid / keyword hiện tại để phân trang đúng kết quả đang lọc / tìm kiếm -->
+<ul class="pagination">
+    @for (int i = 1; i <= pageNum; i++)
+    {
+        <li class="page-item @(i == currentPage ? "active" : "")" data-page="@i" data-mid="@ViewData["mid"]" data-keyword="@ViewData["keyword"]">
+            <a class="page-link" role="button">@i</a>
+        </li>
+    }
+</ul>
