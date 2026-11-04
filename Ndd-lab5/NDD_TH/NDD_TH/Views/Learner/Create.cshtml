@@ -1,0 +1,50 @@
+@model NDD_TH.Models.Learner
+@{
+    Layout = "~/Views/Shared/MyLayoutHelper.cshtml";
+    ViewData["Title"] = "Thêm người học";
+}
+
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">School database · Create</p>
+        <h1>Thêm người học</h1>
+        <p class="page-subtitle">Thông tin sẽ được lưu vào cơ sở dữ liệu.</p>
+    </div>
+    <a class="btn btn-outline-secondary" asp-action="Index">← Danh sách</a>
+</div>
+
+<section class="panel-card form-panel">
+    <form asp-action="Create" method="post" class="form-grid">
+        <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+        <div class="form-field">
+            <label asp-for="FirstMidName" class="form-label"></label>
+            <input asp-for="FirstMidName" class="form-control" />
+            <span asp-validation-for="FirstMidName" class="text-danger"></span>
+        </div>
+        <div class="form-field">
+            <label asp-for="LastName" class="form-label"></label>
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="form-field">
+            <label asp-for="EnrollmentDate" class="form-label"></label>
+            <input asp-for="EnrollmentDate" class="form-control" />
+            <span asp-validation-for="EnrollmentDate" class="text-danger"></span>
+        </div>
+        <div class="form-field">
+            <label asp-for="MajorId" class="form-label">Ngành học</label>
+            <select asp-for="MajorId" asp-items="ViewBag.MajorId" class="form-select">
+                <option value="">Chọn ngành học</option>
+            </select>
+            <span asp-validation-for="MajorId" class="text-danger"></span>
+        </div>
+        <div class="form-actions form-field-wide">
+            <button type="submit" class="btn btn-primary">Tạo người học</button>
+            <a class="btn btn-light" asp-action="Index">Hủy</a>
+        </div>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

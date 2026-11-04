@@ -1,0 +1,19 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace DBFirstApp.Models;
+
+public partial class Enrollment
+{
+    public int EnrollmentId { get; set; }
+
+    public int CourseId { get; set; }
+
+    public int LearnerId { get; set; }
+
+    [Range(0, 10)]
+    public float Grade { get; set; }
+
+    public virtual Course? Course { get; set; }
+
+    public virtual Learner? Learner { get; set; }
+}

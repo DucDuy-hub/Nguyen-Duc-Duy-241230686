@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "~/Views/Shared/MyLayoutHelper.cshtml";
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">Tổng quan</p>
+        <h1>Dashboard</h1>
+        <p class="page-subtitle">Theo dõi dữ liệu người học và các phần thực hành trong hệ thống.</p>
+    </div>
+    <a class="btn btn-primary" asp-controller="Learner" asp-action="Create">+ Thêm người học</a>
+</div>
+
+<div class="stats-grid">
+    <a class="stat-card" asp-controller="Learner" asp-action="Index">
+        <span class="stat-icon violet">▤</span>
+        <span class="stat-label">Người học</span>
+        <strong>@ViewBag.LearnerCount</strong>
+        <span class="stat-note">Danh sách người học</span>
+    </a>
+    <a class="stat-card" asp-controller="Course" asp-action="Index">
+        <span class="stat-icon blue">▣</span>
+        <span class="stat-label">Môn học</span>
+        <strong>@ViewBag.CourseCount</strong>
+        <span class="stat-note">Trong chương trình</span>
+    </a>
+    <a class="stat-card" asp-controller="Learner" asp-action="Index">
+        <span class="stat-icon green">⌂</span>
+        <span class="stat-label">Chuyên ngành</span>
+        <strong>@ViewBag.MajorCount</strong>
+        <span class="stat-note">Có thể lọc danh sách</span>
+    </a>
+    <a class="stat-card" asp-controller="Student" asp-action="Index">
+        <span class="stat-icon orange">◉</span>
+        <span class="stat-label">Sinh viên mẫu</span>
+        <strong>@ViewBag.StudentCount</strong>
+        <span class="stat-note">Bài thực hành 1–3</span>
+    </a>
+</div>
+
+<section class="panel-card welcome-panel">
+    <div>
+        <p class="eyebrow">School Management</p>
+        <h2>Quản lý học tập gọn trong một nơi</h2>
+        <p class="muted">Thêm và cập nhật người học, xem môn học, lọc theo chuyên ngành hoặc mở bài thực hành sinh viên.</p>
+    </div>
+    <div class="quick-links">
+        <a class="quick-link" asp-controller="Learner" asp-action="Index">Mở danh sách người học <span>→</span></a>
+        <a class="quick-link" asp-controller="Student" asp-action="Index">Mở bài thực hành sinh viên <span>→</span></a>
+    </div>
+</section>

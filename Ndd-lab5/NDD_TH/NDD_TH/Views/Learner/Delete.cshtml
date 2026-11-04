@@ -1,0 +1,50 @@
+@model NDD_TH.Models.Learner
+@{
+    Layout = "~/Views/Shared/MyLayoutHelper.cshtml";
+    ViewData["Title"] = "Xóa người học";
+    var canDelete = (bool)ViewBag.CanDelete;
+}
+
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">School database · Delete</p>
+        <h1>Xóa người học</h1>
+        <p class="page-subtitle">Kiểm tra thông tin trước khi xác nhận.</p>
+    </div>
+    <a class="btn btn-outline-secondary" asp-action="Index">← Danh sách</a>
+</div>
+
+<section class="panel-card form-panel">
+    @if (canDelete)
+    {
+        <div class="alert alert-warning">Bạn có chắc muốn xóa người học này?</div>
+    }
+    else
+    {
+        <div class="alert alert-danger">Không thể xóa người học vì vẫn còn đăng ký môn học.</div>
+    }
+
+    <dl class="row detail-list">
+        <dt class="col-sm-3">Tên</dt>
+        <dd class="col-sm-9">@Model.FirstMidName</dd>
+        <dt class="col-sm-3">Họ</dt>
+        <dd class="col-sm-9">@Model.LastName</dd>
+        <dt class="col-sm-3">Ngành học</dt>
+        <dd class="col-sm-9">@Model.Major?.MajorName</dd>
+        <dt class="col-sm-3">Ngày nhập học</dt>
+        <dd class="col-sm-9">@Model.EnrollmentDate.ToString("dd/MM/yyyy")</dd>
+        <dt class="col-sm-3">Số đăng ký môn</dt>
+        <dd class="col-sm-9">@Model.Enrollments.Count</dd>
+    </dl>
+
+    <div class="form-actions">
+        @if (canDelete)
+        {
+            <form asp-action="DeleteConfirmed" method="post">
+                <input type="hidden" name="id" value="@Model.LearnerId" />
+                <button type="submit" class="btn btn-danger">Xóa người học</button>
+            </form>
+        }
+        <a class="btn btn-light" asp-action="Index">@(canDelete ? "Hủy" : "Quay lại danh sách")</a>
+    </div>
+</section>

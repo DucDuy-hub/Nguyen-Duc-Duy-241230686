@@ -1,0 +1,12 @@
+@model IEnumerable<NDD_TH.Models.Major>
+@{
+    int? selectedMajorId = ViewBag.SelectedMajorId;
+}
+
+<div class="major-filters" aria-label="Lọc theo ngành học">
+    <a href="#" class="filter-chip @(selectedMajorId is null ? "active" : "")" data-major-id="">Tất cả</a>
+    @foreach (var major in Model)
+    {
+        <a href="#" class="filter-chip @(selectedMajorId == major.MajorId ? "active" : "")" data-major-id="@major.MajorId">@major.MajorName</a>
+    }
+</div>

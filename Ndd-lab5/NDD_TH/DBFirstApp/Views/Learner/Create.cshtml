@@ -1,0 +1,16 @@
+@model Learner
+@{
+    ViewData["Title"] = "Create learner";
+}
+
+<div class="top"><h1>Create learner</h1><a class="btn btn-light" asp-action="Index">Back to list</a></div>
+<section class="card">
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="error"></div>
+        <label asp-for="FirstMidName"></label><input asp-for="FirstMidName" /><span asp-validation-for="FirstMidName" class="error"></span>
+        <label asp-for="LastName"></label><input asp-for="LastName" /><span asp-validation-for="LastName" class="error"></span>
+        <label asp-for="EnrollmentDate"></label><input asp-for="EnrollmentDate" /><span asp-validation-for="EnrollmentDate" class="error"></span>
+        <label asp-for="MajorId">Major</label><select asp-for="MajorId" asp-items="ViewBag.MajorId"><option value="">Select a major</option></select><span asp-validation-for="MajorId" class="error"></span>
+        <div class="actions"><button class="btn" type="submit">Create</button><a class="btn btn-light" asp-action="Index">Cancel</a></div>
+    </form>
+</section>

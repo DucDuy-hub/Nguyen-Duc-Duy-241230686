@@ -1,0 +1,36 @@
+@model IEnumerable<NDD_TH.Models.Learner>
+
+<div class="table-responsive">
+    <table class="table data-table align-middle mb-0">
+        <thead>
+            <tr>
+                <th>Mã</th>
+                <th>Tên</th>
+                <th>Họ</th>
+                <th>Chuyên ngành</th>
+                <th>Ngày nhập học</th>
+                <th class="text-end">Chức năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr><td colspan="6"><div class="empty-state">Chưa có người học trong chuyên ngành này.</div></td></tr>
+            }
+            @foreach (var learner in Model)
+            {
+                <tr>
+                    <td class="code-cell">@learner.LearnerId</td>
+                    <td><strong>@learner.FirstMidName</strong></td>
+                    <td>@learner.LastName</td>
+                    <td><span class="major-tag">@learner.Major?.MajorName</span></td>
+                    <td>@learner.EnrollmentDate.ToString("dd/MM/yyyy")</td>
+                    <td class="text-end action-cell">
+                        <a class="btn btn-sm btn-light" asp-action="Edit" asp-route-id="@learner.LearnerId">Sửa</a>
+                        <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@learner.LearnerId">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

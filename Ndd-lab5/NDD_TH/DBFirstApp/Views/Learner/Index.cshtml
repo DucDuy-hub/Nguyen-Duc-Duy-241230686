@@ -1,0 +1,33 @@
+@model IEnumerable<Learner>
+@{
+    ViewData["Title"] = "Learner list";
+}
+
+<div class="top">
+    <div><h1>Learner list</h1><p>CRUD generated-style views backed by the School database.</p></div>
+    <a class="btn" asp-action="Create">Create learner</a>
+</div>
+
+@if (TempData["Error"] is string error)
+{
+    <p class="notice">@error</p>
+}
+
+<section class="card">
+    <table>
+        <thead><tr><th>ID</th><th>First name</th><th>Last name</th><th>Major</th><th>Enrollment date</th><th></th></tr></thead>
+        <tbody>
+            @foreach (var learner in Model)
+            {
+                <tr>
+                    <td>@learner.LearnerId</td>
+                    <td>@learner.FirstMidName</td>
+                    <td>@learner.LastName</td>
+                    <td>@learner.Major?.MajorName</td>
+                    <td>@learner.EnrollmentDate.ToString("d")</td>
+                    <td><a asp-action="Edit" asp-route-id="@learner.LearnerId">Edit</a> · <a asp-action="Delete" asp-route-id="@learner.LearnerId">Delete</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

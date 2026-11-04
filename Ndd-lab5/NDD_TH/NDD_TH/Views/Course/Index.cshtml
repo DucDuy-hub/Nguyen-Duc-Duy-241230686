@@ -1,0 +1,35 @@
+@model IEnumerable<NDD_TH.Models.Course>
+@{
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+    ViewData["Title"] = "Danh sách môn học";
+}
+
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">Lab 4 · School database</p>
+        <h1>Danh sách môn học</h1>
+        <p class="page-subtitle">Các môn học và số lượng đăng ký trong dữ liệu mẫu.</p>
+    </div>
+    <a class="btn btn-outline-secondary" asp-controller="Learner" asp-action="Index">Người học</a>
+</div>
+
+<section class="panel-card table-panel">
+    <div class="table-responsive">
+        <table class="table data-table align-middle mb-0">
+            <thead>
+                <tr><th>Mã môn</th><th>Tên môn</th><th>Tín chỉ</th><th>Đăng ký</th></tr>
+            </thead>
+            <tbody>
+                @foreach (var course in Model)
+                {
+                    <tr>
+                        <td class="code-cell">@course.CourseId</td>
+                        <td><strong>@course.Title</strong></td>
+                        <td>@course.Credits</td>
+                        <td>@course.Enrollments.Count</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

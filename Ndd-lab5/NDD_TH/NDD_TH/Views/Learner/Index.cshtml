@@ -1,0 +1,62 @@
+@model IEnumerable<NDD_TH.Models.Learner>
+@{
+    Layout = "~/Views/Shared/MyLayoutHelper.cshtml";
+    ViewData["Title"] = "Danh sách người học";
+    int? selectedMajorId = ViewBag.SelectedMajorId;
+}
+
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">Lab 4–5 · Entity Framework và AJAX</p>
+        <h1>Danh sách người học</h1>
+        <p class="page-subtitle">Lọc danh sách theo chuyên ngành và quản lý hồ sơ người học.</p>
+    </div>
+    <a class="btn btn-primary" asp-action="Create">+ Thêm người học</a>
+</div>
+
+@if (TempData["Success"] is string success)
+{
+    <div class="alert alert-success">@success</div>
+}
+@if (TempData["Error"] is string error)
+{
+    <div class="alert alert-danger">@error</div>
+}
+
+<section class="panel-card table-panel">
+    <div class="panel-header filter-header">
+        <div>
+            <h2>Learner List</h2>
+            <p class="muted">Chọn chuyên ngành để lọc ngay danh sách.</p>
+        </div>
+        @await Component.InvokeAsync("Major", new { selectedMajorId })
+    </div>
+    <div id="content" data-filter-url="@Url.Action("LearnerByMajorID", "Learner")">
+        <partial name="LearnerTable" model="Model" />
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        $(document).on('click', '.filter-chip', function (event) {
+            event.preventDefault();
+            const chip = $(this);
+            const majorId = chip.attr('data-major-id');
+
+            $('.filter-chip').removeClass('active');
+            chip.addClass('active');
+
+            $.ajax({
+                url: $('#content').data('filter-url'),
+                type: 'GET',
+                data: { mid: majorId || null },
+                success: function (response) {
+                    $('#content').html(response);
+                },
+                error: function () {
+                    $('#content').html('<div class="empty-state">Không tải được danh sách. Vui lòng thử lại.</div>');
+                }
+            });
+        });
+    </script>
+}

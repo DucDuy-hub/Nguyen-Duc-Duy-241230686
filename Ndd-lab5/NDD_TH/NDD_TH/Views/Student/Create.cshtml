@@ -1,0 +1,91 @@
+@model NDD_TH.Models.Student
+@{
+    Layout = "~/Views/Shared/MyLayoutHelper.cshtml";
+    ViewData["Title"] = "Thêm sinh viên";
+}
+
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">Lab 1–3 · Create và Validation</p>
+        <h1>Thêm sinh viên</h1>
+        <p class="page-subtitle">Nhập thông tin, chọn ngành và tải ảnh đại diện tùy chọn.</p>
+    </div>
+    <a class="btn btn-outline-secondary" asp-action="Index">← Danh sách</a>
+</div>
+
+<section class="panel-card form-panel">
+    <form asp-action="Create" method="post" enctype="multipart/form-data" class="form-grid">
+        <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+
+        <div class="form-field">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" autocomplete="name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-field">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-control" autocomplete="email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-field">
+            <label asp-for="Password" class="form-label"></label>
+            <input asp-for="Password" class="form-control" autocomplete="new-password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-field">
+            <label asp-for="Branch" class="form-label"></label>
+            <select asp-for="Branch" asp-items="Html.GetEnumSelectList<NDD_TH.Models.Branch>()" class="form-select">
+                <option value="">Chọn ngành học</option>
+            </select>
+            <span asp-validation-for="Branch" class="text-danger"></span>
+        </div>
+        <div class="form-field">
+            <label asp-for="DateOfBirth" class="form-label"></label>
+            <input asp-for="DateOfBirth" class="form-control" />
+            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+        </div>
+        <div class="form-field">
+            <label asp-for="Score" class="form-label"></label>
+            <input asp-for="Score" class="form-control" type="number" min="0" max="10" step="0.1" />
+            <span asp-validation-for="Score" class="text-danger"></span>
+        </div>
+        <div class="form-field form-field-wide">
+            <span class="form-label">Giới tính</span>
+            <div class="choice-row">
+                @foreach (var gender in Enum.GetValues<NDD_TH.Models.Gender>())
+                {
+                    <label class="choice-option">
+                        <input asp-for="Gender" type="radio" value="@((int)gender)" />
+                        <span>@gender.ToDisplayName()</span>
+                    </label>
+                }
+            </div>
+            <span asp-validation-for="Gender" class="text-danger"></span>
+        </div>
+        <div class="form-field form-field-wide">
+            <label asp-for="Address" class="form-label"></label>
+            <textarea asp-for="Address" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="avatar">Ảnh đại diện</label>
+            <input class="form-control" type="file" id="avatar" name="avatar" accept=".jpg,.jpeg,.png,.webp" />
+            <span class="field-hint">JPG, PNG hoặc WebP, tối đa 5 MB.</span>
+            <span class="text-danger">@Html.ValidationMessage("avatar")</span>
+        </div>
+        <div class="form-field form-field-wide">
+            <label class="choice-option">
+                <input asp-for="IsRegular" />
+                <span>Hệ chính quy</span>
+            </label>
+        </div>
+        <div class="form-actions form-field-wide">
+            <button type="submit" class="btn btn-primary">Lưu sinh viên</button>
+            <a class="btn btn-light" asp-action="Index">Hủy</a>
+        </div>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

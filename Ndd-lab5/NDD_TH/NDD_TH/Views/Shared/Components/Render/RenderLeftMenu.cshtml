@@ -1,0 +1,10 @@
+@model IEnumerable<NDD_TH.Models.MenuItem>
+
+<nav class="sidebar-nav" aria-label="Điều hướng chính">
+    <p class="sidebar-label">Workspace</p>
+    @foreach (var item in Model)
+    {
+        var icon = item.Id switch { 1 => "⌂", 2 => "▤", 3 => "▣", _ => "◉" };
+        <a class="sidebar-link" href="@item.Link"><span class="nav-icon">@icon</span>@item.Name</a>
+    }
+</nav>
