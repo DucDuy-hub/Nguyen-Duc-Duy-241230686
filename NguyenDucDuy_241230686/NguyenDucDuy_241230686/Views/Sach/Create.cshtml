@@ -1,0 +1,79 @@
+﻿@model NguyenDucDuy_241230686.Models.CreateSachViewModel
+
+@{
+    ViewData["Title"] = "Thêm sách mới";
+}
+
+<div class="container" style="padding:30px 0;">
+    <div style="max-width:650px; margin:auto; background:white;
+        padding:30px; border-radius:8px;">
+
+        <h2 style="margin-bottom:25px; color:#315b6b;">
+            THÊM SÁCH MỚI
+        </h2>
+
+        <form asp-controller="Sach"
+              asp-action="Create"
+              method="post"
+              enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly"
+                 style="color:red;"></div>
+
+            <div style="margin-bottom:15px;">
+                <label asp-for="TenSach">Tên sách</label>
+                <input asp-for="TenSach"
+                       class="form-control"
+                       style="width:100%; padding:10px;" />
+                <span asp-validation-for="TenSach"
+                      style="color:red;"></span>
+            </div>
+
+            <div style="margin-bottom:15px;">
+                <label asp-for="MaTl">Thể loại</label>
+                <select asp-for="MaTl"
+                        asp-items="ViewBag.DanhSachTheLoai"
+                        style="width:100%; padding:10px;">
+                    <option value="">-- Chọn thể loại --</option>
+                </select>
+                <span asp-validation-for="MaTl"
+                      style="color:red;"></span>
+            </div>
+
+            <div style="margin-bottom:15px;">
+                <label asp-for="Gia">Giá sách</label>
+                <input asp-for="Gia"
+                       type="number"
+                       min="50"
+                       max="1000"
+                       step="1"
+                       style="width:100%; padding:10px;" />
+                <span asp-validation-for="Gia"
+                      style="color:red;"></span>
+            </div>
+
+            <div style="margin-bottom:20px;">
+                <label asp-for="Anh">Ảnh sách</label>
+                <input asp-for="Anh"
+                       type="file"
+                       accept=".jpg,.jpeg,.png,.webp"
+                       style="width:100%; padding:10px;" />
+                <span asp-validation-for="Anh"
+                      style="color:red;"></span>
+            </div>
+
+            <button type="submit"
+                    style="background:#315b6b; color:white;
+                border:0; padding:12px 25px;
+                border-radius:5px; cursor:pointer;">
+                Lưu sách
+            </button>
+
+            <a asp-controller="Home"
+               asp-action="Index"
+               style="margin-left:15px;">
+                Quay lại
+            </a>
+        </form>
+    </div>
+</div>

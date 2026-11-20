@@ -1,0 +1,18 @@
+﻿@model IEnumerable<NguyenDucDuy_241230686.Models.Sach>
+
+@foreach (var sach in Model)
+{
+    <div class="book-card">
+        <a href="#">
+            <img src="@Url.Content("~/images/" + sach.Anh)"
+                 alt="@sach.TenSach" />
+        </a>
+
+        <h2>@sach.TenSach</h2>
+
+        <div class="book-foot">
+            <span class="price">@sach.Gia</span>
+            <button class="btn-buy">Thêm vào giỏ</button>
+        </div>
+    </div>
+}

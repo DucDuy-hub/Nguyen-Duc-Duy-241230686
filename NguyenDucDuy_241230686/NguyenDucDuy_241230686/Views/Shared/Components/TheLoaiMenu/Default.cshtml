@@ -1,0 +1,11 @@
+﻿@model IEnumerable<NguyenDucDuy_241230686.Models.TheLoai>
+
+@foreach (var item in Model)
+{
+    <li>
+        <a href="#" class="chon-the-loai"
+           data-matl="@item.MaTl">
+            @item.TenTl
+        </a>
+    </li>
+}
