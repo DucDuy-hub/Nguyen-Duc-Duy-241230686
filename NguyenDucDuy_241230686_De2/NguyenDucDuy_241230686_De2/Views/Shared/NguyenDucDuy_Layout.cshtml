@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetHub  - Quản lý tài sản doanh nghiệp</title>
+    <link href="~/css/style.css" rel="stylesheet"  />
+    <link href="~/css/layout.css" rel="stylesheet" />
+</head>
+<body>
+    @await Html.PartialAsync("NguyenDucDuy_Header")
+    @RenderBody()
+
+    @await Html.PartialAsync("NguyenDucDuy_Footer")
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/main.js"></script>
+
+    <script>
+            document.addEventListener("DOMContentLoaded", function () {
+
+                const danhSach = document.getElementById("danhSachTaiSan");
+                const tieuDe = document.getElementById("tieuDeTaiSan");
+
+                document.querySelectorAll(".chon-loai").forEach(function (link) {
+
+                    link.addEventListener("click", async function (event) {
+
+                        event.preventDefault();
+
+                        const maLoai = this.dataset.maloai;
+                        const tenLoai = this.textContent.trim();
+
+                        try {
+                            const response = await fetch(
+                                '@Url.Action("LocTaiSan", "Home")?maLoai='
+                                + encodeURIComponent(maLoai)
+                            );
+
+
+                            if (!response.ok) {
+                                throw new Error("Không thể tải dữ liệu");
+                            }
+
+                            const html = await response.text();
+
+                            danhSach.innerHTML = html;
+                            tieuDe.textContent = tenLoai;
+
+                            // Đổi trạng thái active của menu
+                            document.querySelectorAll(".menu li").forEach(function (li) {
+                                li.classList.remove("active");
+                            });
+
+                            this.parentElement.classList.add("active");
+
+                        } catch (error) {
+                            console.error(error);
+                            alert("Có lỗi khi lọc tài sản!");
+                        }
+
+                    });
+
+                });
+
+            });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

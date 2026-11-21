@@ -1,0 +1,119 @@
+﻿@model NguyenDucDuy_241230686_De2.Models.TaiSan
+
+@{
+    ViewData["Title"] = "Sửa tài sản";
+    Layout = "~/Views/Shared/NguyenDucDuy_Layout.cshtml";
+}
+
+<div class="container" style="padding:40px 15px;">
+
+    <div style="max-width:600px;
+        margin:auto;
+        background:white;
+        padding:30px;
+        border-radius:10px;
+        box-shadow:0 4px 15px rgba(0,0,0,0.1);">
+
+        <h3 style="color:#203A68; margin-bottom:25px;">
+            SỬA THÔNG TIN TÀI SẢN
+        </h3>
+
+        <form asp-controller="TaiSan"
+              asp-action="Edit"
+              asp-route-id="@Model.MaTs"
+              method="post">
+
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" asp-for="MaTs" />
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger"></div>
+
+            <div style="margin-bottom:20px;">
+                <label asp-for="MaLoai">
+                    Loại tài sản
+                </label>
+
+                <select asp-for="MaLoai"
+                        asp-items="ViewBag.DanhSachLoai"
+                        class="form-control">
+                    <option value="">
+                        -- Chọn loại tài sản --
+                    </option>
+                </select>
+
+                <span asp-validation-for="MaLoai"
+                      class="text-danger"></span>
+            </div>
+
+            <div style="margin-bottom:20px;">
+                <label asp-for="TenTs">
+                    Tên tài sản
+                </label>
+
+                <input asp-for="TenTs"
+                       class="form-control" />
+
+                <span asp-validation-for="TenTs"
+                      class="text-danger"></span>
+            </div>
+
+            <div style="margin-bottom:20px;">
+                <label asp-for="NguyenGia">
+                    Nguyên giá (triệu đồng)
+                </label>
+
+                <input asp-for="NguyenGia"
+                       type="number"
+                       step="any"
+                       class="form-control" />
+
+                <span asp-validation-for="NguyenGia"
+                      class="text-danger"></span>
+            </div>
+
+            <div style="margin-bottom:20px;">
+                <label asp-for="Anh">
+                    Tên file ảnh
+                </label>
+
+                <input asp-for="Anh"
+                       class="form-control"
+                       placeholder="Img_1.jpg" />
+
+                <span asp-validation-for="Anh"
+                      class="text-danger"></span>
+            </div>
+
+            <div style="display:flex; gap:10px;">
+
+                <button type="submit"
+                        style="background:#e5af45;
+                    color:#203A68;
+                    border:none;
+                    padding:12px 30px;
+                    border-radius:5px;
+                    font-weight:bold;">
+                    Save
+                </button>
+
+                <a asp-controller="Home"
+                   asp-action="Index"
+                   style="background:#203A68;
+                    color:white;
+                    padding:12px 25px;
+                    border-radius:5px;
+                    text-decoration:none;">
+                    Quay lại
+                </a>
+
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

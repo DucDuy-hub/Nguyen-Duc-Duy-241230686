@@ -1,0 +1,78 @@
+﻿@model NguyenDucDuy_241230686_De2.Models.TaiSan
+
+@{
+    ViewData["Title"] = "Thêm tài sản mới";
+    Layout = "~/Views/Shared/NguyenDucDuy_Layout.cshtml";
+}
+
+<div class="container" style="padding: 40px 0;">
+
+    <div style="max-width: 550px; margin: auto;
+        background: white; padding: 30px;
+        border-radius: 8px;">
+
+        <h3 style="margin-bottom: 25px;">
+            THÊM TÀI SẢN MỚI
+        </h3>
+
+        <form asp-controller="TaiSan"
+              asp-action="Create"
+              method="post">
+
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger"></div>
+
+            <div style="margin-bottom: 15px;">
+                <label>Loại tài sản</label>
+
+                <select asp-for="MaLoai"
+                        asp-items="ViewBag.DanhSachLoai"
+                        class="form-control">
+                    <option value="">-- Chọn loại tài sản --</option>
+                </select>
+
+                <span asp-validation-for="MaLoai"
+                      class="text-danger"></span>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label>Tên tài sản</label>
+
+                <input asp-for="TenTs"
+                       class="form-control" />
+
+                <span asp-validation-for="TenTs"
+                      class="text-danger"></span>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label>Nguyên giá (triệu)</label>
+
+                <input asp-for="NguyenGia"
+                       class="form-control" />
+
+                <span asp-validation-for="NguyenGia"
+                      class="text-danger"></span>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label>Tên file ảnh</label>
+
+                <input asp-for="Anh"
+                       class="form-control"
+                       placeholder="Img_1.jpg" />
+
+                <span asp-validation-for="Anh"
+                      class="text-danger"></span>
+            </div>
+
+            <button type="submit"
+                    class="btn-buy">
+                Create
+            </button>
+
+        </form>
+    </div>
+</div>
