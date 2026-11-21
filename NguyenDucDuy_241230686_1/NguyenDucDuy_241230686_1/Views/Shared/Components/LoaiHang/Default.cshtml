@@ -1,0 +1,27 @@
+﻿@model IEnumerable<NguyenDucDuy_241230686_1.Models.LoaiHang>
+
+<ul>
+    <li class="active">
+        <a asp-controller="Home" asp-action="Index">
+            Nguyễn Đức Duy
+        </a>
+    </li>
+
+    @foreach (var item in Model)
+    {
+        <li>
+            <a href="#"
+               class="chon-loai-hang"
+               data-maloai="@item.MaLoai">
+                @item.TenLoai
+            </a>
+        </li>
+    }
+    <li>
+        <a asp-controller="HangHoa"
+           asp-action="Create">
+            Thêm Hàng Hóa
+        </a>
+    </li>
+    <div class="clear"></div>
+</ul>

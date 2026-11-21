@@ -1,0 +1,100 @@
+﻿@model NguyenDucDuy_241230686_1.Models.HangHoaCreateViewModel
+
+<h3>Nguyễn Đức Duy</h3>
+<h3>Thêm Hàng Hóa Mới</h3>
+<hr />
+
+<form asp-controller="HangHoa"
+      asp-action="Create"
+      method="post">
+
+    <div asp-validation-summary="ModelOnly"
+         style="color:red"></div>
+
+    <div>
+        <label asp-for="MaLoai">Mã Loại</label>
+        <br />
+        <select asp-for="MaLoai"
+                asp-items="ViewBag.DanhSachLoai">
+            <option value="">-- Chọn loại hàng --</option>
+        </select>
+        <br />
+        <span asp-validation-for="MaLoai"
+              style="color:red"></span>
+    </div>
+
+    <div>
+        <label asp-for="TenHang">Tên Hàng</label>
+        <br />
+        <input asp-for="TenHang" />
+        <br />
+        <span asp-validation-for="TenHang"
+              style="color:red"></span>
+    </div>
+
+    <div>
+        <label asp-for="Gia">Giá</label>
+        <br />
+        <input asp-for="Gia" type="number" step="any" />
+        <br />
+        <span asp-validation-for="Gia"
+              style="color:red"></span>
+    </div>
+
+    <div>
+        <label asp-for="Anh">Ảnh</label>
+        <br />
+        <input asp-for="Anh"
+               placeholder="Img_1.jpg" />
+        <br />
+        <span asp-validation-for="Anh"
+              style="color:red"></span>
+    </div>
+
+    <br />
+
+    <button type="submit">Create</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const form = document.querySelector("form");
+            const gia = document.getElementById("Gia");
+            const anh = document.getElementById("Anh");
+
+            form.addEventListener("submit", function (event) {
+
+                let hopLe = true;
+
+                const giaValue = Number(gia.value);
+
+                // Kiểm tra giá
+                if (gia.value.trim() === "" ||
+                    !Number.isFinite(giaValue) ||
+                    giaValue < 100 ||
+                    giaValue > 5000) {
+
+                    alert("Giá phải là số từ 100 đến 5000!");
+                    gia.focus();
+                    hopLe = false;
+                }
+
+                // Kiểm tra tên ảnh
+                else if (!/\.(jpg|png|gif|tiff)$/i.test(anh.value.trim())) {
+
+                    alert("Ảnh phải có đuôi .jpg, .png, .gif hoặc .tiff!");
+                    anh.focus();
+                    hopLe = false;
+                }
+
+                if (!hopLe) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+}

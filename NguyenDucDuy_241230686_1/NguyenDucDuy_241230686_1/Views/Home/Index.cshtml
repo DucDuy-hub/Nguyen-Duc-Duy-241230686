@@ -1,0 +1,45 @@
+﻿@model IEnumerable<NguyenDucDuy_241230686_1.Models.HangHoa>
+
+@await Html.PartialAsync("NguyenDucDuy_MainContent", Model)
+
+@section Scripts {
+    <script>
+        document.addEventListener("click", async function (event) {
+
+            const link = event.target.closest(".chon-loai-hang");
+
+            if (!link) return;
+
+            event.preventDefault();
+
+            const maLoai = link.dataset.maloai;
+
+            try {
+                const url = '@Url.Action("LocHang", "Home")'
+                    + '?maLoai=' + encodeURIComponent(maLoai);
+
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error("Không thể tải danh sách hàng hóa");
+                }
+
+                const html = await response.text();
+
+                document.getElementById("danhSachHangHoa")
+                    .innerHTML = html;
+
+                // Xóa trạng thái active cũ
+                document.querySelectorAll(".menu li")
+                    .forEach(li => li.classList.remove("active"));
+
+                // Đánh dấu danh mục đang chọn
+                link.closest("li").classList.add("active");
+
+            } catch (error) {
+                console.error(error);
+                alert("Có lỗi khi lọc hàng hóa!");
+            }
+        });
+    </script>
+}

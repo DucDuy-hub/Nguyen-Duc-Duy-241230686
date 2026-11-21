@@ -1,0 +1,19 @@
+﻿@model IEnumerable<NguyenDucDuy_241230686_1.Models.HangHoa>
+
+<div class="content_top">
+    <div class="heading">
+        <h3>Nguyễn Đức Duy</h3>
+    </div>
+
+    <div class="see">
+        <p>
+            <a href="/">See all Products</a>
+        </p>
+    </div>
+
+    <div class="clear"></div>
+</div>
+
+<div id="danhSachHangHoa">
+    @await Html.PartialAsync("_DanhSachHangHoa", Model)
+</div>
